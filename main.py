@@ -48,6 +48,7 @@ def prepare_anki_action(
                     "Sentence Furigana": phraseFurigana,
                     "Sentence Meaning": phraseTranslation,
                 },
+                "tags": ["custom_autobot"],
             }
         },
     }
