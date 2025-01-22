@@ -53,22 +53,40 @@ def prepare_anki_action(
     }
 
 
+def create_logger(quiet):
+    if quiet:
+        return lambda *_: None
+    return print
+
+
 if __name__ == "__main__":
     import json
     import sys
+    import requests as r
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Send to anki deck")
+    parser.add_argument("deck", type=str, help="Name of the deck to send notes to")
+    parser.add_argument(
+        "--quiet", action="store_true", help="Decrease output verbosity"
+    )
+    parser.add_argument(
+        "--dry", action="store_true", help="Don't actually send to anki"
+    )
+
+    args = parser.parse_args()
 
     json_str = sys.stdin.read().strip()
-    print(json_str)
-    print()
+
+    log = create_logger(args.quiet)
+    log(json_str)
+    log()
     data = json.loads(json_str)
+    log("\n" + ("-" * 10) + "\n")
 
-    print("reading: {}".format(data["phraseFurigana"]))
-    print("translation: {}\n".format(data["phraseTranslation"]))
-    print("\n" + ("-" * 10) + "\n")
-
-    phraseFurigana = data["phraseFurigana"]
-    phrase = data["originalPhrase"]
-    phraseTranslation = data["phraseTranslation"]
+    phraseFurigana = data["furigana"]
+    phrase = data["phrase"]
+    phraseTranslation = data["translation"]
 
     for word, word_data in data["words"].items():
         anki_action = prepare_anki_action(
@@ -79,5 +97,12 @@ if __name__ == "__main__":
             phraseFurigana=phraseFurigana,
             phraseTranslation=phraseTranslation,
         )
-        print(json.dumps(anki_action, ensure_ascii=False))
-        print("\n" + ("-" * 10) + "\n")
+        log(json.dumps(anki_action, ensure_ascii=False))
+
+        if not args.dry:
+            # send to anki
+            response = r.post("http://localhost:8765", json=anki_action)
+            log("\n")
+            log("Response Body:", response.json())
+
+        log("\n" + ("-" * 10) + "\n")
