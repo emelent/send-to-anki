@@ -66,7 +66,7 @@ if __name__ == "__main__":
     import argparse
 
     parser = argparse.ArgumentParser(description="Send to anki deck")
-    parser.add_argument("deck", type=str, help="Name of the deck to send notes to")
+    parser.add_argument("deck", type=str, help="Deck name")
     parser.add_argument(
         "--quiet", action="store_true", help="Decrease output verbosity"
     )
@@ -90,7 +90,7 @@ if __name__ == "__main__":
 
     for word, word_data in data["words"].items():
         anki_action = prepare_anki_action(
-            deckname="dummy",
+            deckname=args.deck,
             word=word,
             data=word_data,
             phrase=phrase,
