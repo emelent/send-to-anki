@@ -61,10 +61,11 @@ Then I pipe that into this main.py to create anki cards. There are some less use
 
 **Front**
 
-![Anki card front](/example/front.png "Anki card front")
+![Anki card front](./example/front.png "Anki card front")
 
 **Back**
-![Anki card back](/example/back.png "Anki card back")
+
+![Anki card back](./example/back.png "Anki card back")
 
 #### Usage
 
