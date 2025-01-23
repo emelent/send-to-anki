@@ -1,21 +1,29 @@
-# import sys
-# import requests
-
-
-# json_string = '{"name": "John", "age": 30, "city": "New York"}'
-# data = json.loads(json_string)
-
-
+"""
 sample_data = {
-    "今日": {"furigana": {"今日": "きょう"}, "definition": "today"},
-    "いい": {"furigana": {"いい": "いい"}, "definition": "good"},
-    "お天気": {"furigana": {"天": "てん", "気": "き"}, "definition": "weather"},
-    "だ": {"furigana": {"だ": "だ"}, "definition": "is (informal)"},
-    "ね": {
-        "furigana": {"ね": "ね"},
-        "definition": "right? (sentence end particle indicating seeking agreement)",
+    "phrase": "危険が伴う恐れがあるからここにいる17人の多数決で決めようと思う",
+    "translation": "I think we should decide by majority vote of the 17 people here because there is a possibility of danger.",
+    "furigana": "危険[きけん] が 伴[ともな]う 恐[おそ]れ が あ[あ]る から ここ に い[い]る 17[じゅうなな] 人[にん] の 多数決[たすうけつ] で 決[き]めよう と 思[おも]う",
+    "words": {
+        "危険": {"furigana": {"危険": "きけん"}, "definition": "danger"},
+        "伴う": {
+            "furigana": {"伴": "ともな"},
+            "definition": "to accompany, to come with",
+        },
+        "恐れ": {"furigana": {"恐れ": "おそれ"}, "definition": "fear, anxiety, worry"},
+        "ある": {"furigana": {"ある": "ある"}, "definition": "to exist, to have"},
+        "ここ": {"furigana": {"ここ": "ここ"}, "definition": "here"},
+        "いる": {
+            "furigana": {"いる": "いる"},
+            "definition": "to exist (animate), to be (present)",
+        },
+        "17": {"furigana": {"17": "じゅうなな"}, "definition": "seventeen"},
+        "人": {"furigana": {"人": "にん"}, "definition": "person"},
+        "多数決": {"furigana": {"多数決": "たすうけつ"}, "definition": "majority vote"},
+        "決める": {"furigana": {"決め": "きめ"}, "definition": "to decide"},
+        "思う": {"furigana": {"思": "おも"}, "definition": "to think"},
     },
 }
+"""
 
 
 def prepare_anki_action(
