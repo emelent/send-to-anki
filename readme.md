@@ -57,6 +57,15 @@ which gives me the json data in this format:
 Then I pipe that into this main.py to create anki cards. There are some less useful cards generated like for simple words like 'いる' or even '17' in this example, so after that I filter out the 'custom_autobot' tagged cards and delete the ones I don't need in my deck.
 
 
+#### Generated card example
+
+**Front**
+
+![Anki card front](/example/front.png "Anki card front")
+
+**Back**
+![Anki card back](/example/back.png "Anki card back")
+
 #### Usage
 
 ```
@@ -129,3 +138,5 @@ Downside is the formatting of the furigana of the kanji might vary. Sometimes ch
 and splits お天気 into two separate kana with furigana ("てん" and "き"), like the above, and other times it rolls it into one ("てんき"). But I suppose that's not all that bad, it just messes with the spacing in the cards. But it's not too big a deal to edit the single card I'm not satisfied with.
 
 Also, since chatgpt responses are not deterministic, you may get varying responses, but they should all be the same in meaning.
+
+
