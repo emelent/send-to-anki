@@ -1,10 +1,12 @@
 #### Send to anki japanese
 
 I made this script to just make the creation of japanese anki cards a bit easier
-for myself.
+for myself, and it requires that you have anki running on your machine and have 
+the [ankiconnect plugin](https://ankiweb.net/shared/info/2055492159) installed.
 
 
-This script takes json data and turns it into japanese anki cards.
+This script takes json data and turns it into japanese anki cards using the
+Kaishi 1.5K Note type.
 
 
 I mainly use this with some terminal-based chatgpt command to get 
@@ -58,16 +60,72 @@ Then I pipe that into this main.py to create anki cards. There are some less use
 #### Usage
 
 ```
- py main.py --help
+py main.py --help
 usage: main.py [-h] [--quiet] [--dry] deck
 
 Send to anki deck
 
-positional arguments:
-  deck        Deck name
-
 options:
-  -h, --help  show this help message and exit
-  --quiet     Decrease output verbosity
-  --dry       Don't actually send to anki
+  -h, --help     show this help message and exit
+  --deck DECK    Deck name
+  --model MODEL  Model name
+  --quiet        Decrease output verbosity
+  --dry          Don't actually send to anki
 ```
+
+So all in all I'd get my japanese text phrase then run this:
+
+`jsonify_jp 今日はいいお天気ですね | python3 -m json.tool --no-ensure-ascii | py main.py --deck "<my-deck-name>"`
+
+
+and the output would be something like this:
+
+```
+
+{
+    "phrase": "今日はいいお天気ですね",
+    "translation": "The weather is nice today",
+    "furigana": "今日[きょう] は いい お天気[おてんき] です ね",
+    "words": {
+        "今日": {
+            "furigana": {
+                "今日": "きょう"
+            },
+            "definition": "today"
+        },
+        "いい": {
+            "furigana": {
+                "いい": "いい"
+            },
+            "definition": "good"
+        },
+        "天気": {
+            "furigana": {
+                "天": "てん",
+                "気": "き"
+            },
+            "definition": "weather"
+        }
+    }
+}
+
+
+----------
+
+{"action": "addNote", "version": 6, "params": {"note": {"deckName": "dummy", "modelName": "HomeMade", "fields": {"Word": "今日", "Word Reading": "きょう", "Word Meaning": "today", "Word Furigana": "今日[きょう]", "Sentence": "今日はいいお天気ですね", "Sentence Furigana": "今日[きょう] は いい お天気[おてんき] です ね", "Sentence Meaning": "The weather is nice today"}, "tags": ["custom_autobot"]}}}
+
+----------
+
+{"action": "addNote", "version": 6, "params": {"note": {"deckName": "dummy", "modelName": "HomeMade", "fields": {"Word": "いい", "Word Reading": "いい", "Word Meaning": "good", "Word Furigana": "いい", "Sentence": "今日はいいお天気ですね", "Sentence Furigana": "今日[きょう] は いい お天気[おてんき] です ね", "Sentence Meaning": "The weather is nice today"}, "tags": ["custom_autobot"]}}}
+
+----------
+
+{"action": "addNote", "version": 6, "params": {"note": {"deckName": "dummy", "modelName": "HomeMade", "fields": {"Word": "天気", "Word Reading": "てんき", "Word Meaning": "weather", "Word Furigana": "天[てん] 気[き]", "Sentence": "今日は いいお天気ですね", "Sentence Furigana": "今日[きょう] は いい お天気[おてんき] です ね", "Sentence Meaning": "The weather is nice today"}, "tags": ["custom_autobot"]}}}
+
+----------
+```
+
+Downside is the formatting of the furigana of the kanji might vary. Sometimes chatgpt does what I want
+and splits お天気 into two separate kana with furigana ("てん" and "き"), like the above, and other times it rolls it into one ("てんき"). But I suppose that's not all that bad, it just messes with the spacing in the cards. But it's not too big a deal to edit the single card I'm not satisfied with.
+
+Also, since chatgpt responses are not deterministic, you may get varying responses, but they should all be the same in meaning.

@@ -27,7 +27,8 @@ sample_data = {
 
 
 def prepare_anki_action(
-    deckname,
+    deck,
+    model,
     word,
     data,
     phrase="",
@@ -45,8 +46,8 @@ def prepare_anki_action(
         "version": 6,
         "params": {
             "note": {
-                "deckName": deckname,
-                "modelName": "HomeMade",
+                "deckName": deck,
+                "modelName": model,
                 "fields": {
                     "Word": word,
                     "Word Reading": reading,
@@ -75,7 +76,8 @@ if __name__ == "__main__":
     import argparse
 
     parser = argparse.ArgumentParser(description="Send to anki deck")
-    parser.add_argument("deck", type=str, help="Deck name")
+    parser.add_argument("--deck", type=str, help="Deck name")
+    parser.add_argument("--model", type=str, default="Kaishi 1.5k", help="Model name")
     parser.add_argument(
         "--quiet", action="store_true", help="Decrease output verbosity"
     )
@@ -99,7 +101,8 @@ if __name__ == "__main__":
 
     for word, word_data in data["words"].items():
         anki_action = prepare_anki_action(
-            deckname=args.deck,
+            deck=args.deck,
+            model=args.model,
             word=word,
             data=word_data,
             phrase=phrase,
