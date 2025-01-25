@@ -85,54 +85,46 @@ options:
 
 So all in all I'd get my japanese text phrase then run this:
 
-`jsonify_jp 今日はいいお天気ですね | python3 -m json.tool --no-ensure-ascii | py main.py --deck "<my-deck-name>"`
+`jsonify_jp ハンターたちは普通魔法石から得た金で武装する | python3 -m json.tool --no-ensure-ascii | py main.py --deck "<my-deck-name>"`
 
 
 and the output would be something like this:
 
 ```
+ハンター[はんたー] たち は 普通[ふつう] 魔法[まほう] 石[いし] から 得[え] た 金[きん] で 武装[ぶそう] する
 
-{
-    "phrase": "今日はいいお天気ですね",
-    "translation": "The weather is nice today",
-    "furigana": "今日[きょう] は いい お天気[おてんき] です ね",
-    "words": {
-        "今日": {
-            "furigana": {
-                "今日": "きょう"
-            },
-            "definition": "today"
-        },
-        "いい": {
-            "furigana": {
-                "いい": "いい"
-            },
-            "definition": "good"
-        },
-        "天気": {
-            "furigana": {
-                "天": "てん",
-                "気": "き"
-            },
-            "definition": "weather"
-        }
-    }
-}
+Hunters usually equip themselves with money obtained from magical stones
 
 
 ----------
 
-{"action": "addNote", "version": 6, "params": {"note": {"deckName": "dummy", "modelName": "HomeMade", "fields": {"Word": "今日", "Word Reading": "きょう", "Word Meaning": "today", "Word Furigana": "今日[きょう]", "Sentence": "今日はいいお天気ですね", "Sentence Furigana": "今日[きょう] は いい お天気[おてんき] です ね", "Sentence Meaning": "The weather is nice today"}, "tags": ["custom_autobot"]}}}
+[*] ハンター[はんたー] - hunter
+        [+] Added successfully
 
-----------
+[*] 普通[ふつう] - normal, usual
+        [+] Added successfully
 
-{"action": "addNote", "version": 6, "params": {"note": {"deckName": "dummy", "modelName": "HomeMade", "fields": {"Word": "いい", "Word Reading": "いい", "Word Meaning": "good", "Word Furigana": "いい", "Sentence": "今日はいいお天気ですね", "Sentence Furigana": "今日[きょう] は いい お天気[おてんき] です ね", "Sentence Meaning": "The weather is nice today"}, "tags": ["custom_autobot"]}}}
+[*] 魔法[まほう] - magic
+        [+] Added successfully
 
-----------
+[*] 石[いし] - stone
+        [+] Added successfully
 
-{"action": "addNote", "version": 6, "params": {"note": {"deckName": "dummy", "modelName": "HomeMade", "fields": {"Word": "天気", "Word Reading": "てんき", "Word Meaning": "weather", "Word Furigana": "天[てん] 気[き]", "Sentence": "今日は いいお天気ですね", "Sentence Furigana": "今日[きょう] は いい お天気[おてんき] です ね", "Sentence Meaning": "The weather is nice today"}, "tags": ["custom_autobot"]}}}
+[*] 得[え] - to obtain, to get
+        [+] Added successfully
 
-----------
+[*] 金[きん] - money, gold
+        [+] Added successfully
+
+[*] 武装[ぶそう] - arming, equipping oneself
+        [+] Added successfully
+
+[*] する - to do, to make
+        [!] cannot create note because it is a duplicate
+
+
+
+[*] Added 7 words
 ```
 
 Downside is the formatting of the furigana of the kanji might vary. Sometimes chatgpt does what I want

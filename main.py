@@ -90,15 +90,22 @@ if __name__ == "__main__":
     json_str = sys.stdin.read().strip()
 
     log = create_logger(args.quiet)
-    log(json_str)
-    log()
+    # log(json_str)
+    # log()
     data = json.loads(json_str)
-    log("\n" + ("-" * 10) + "\n")
+    # log("\n" + ("-" * 10) + "\n")
 
     phraseFurigana = data["furigana"]
     phrase = data["phrase"]
     phraseTranslation = data["translation"]
 
+    log()
+    log(phraseFurigana)
+    log()
+    log(phraseTranslation)
+    log("\n\n" + ("-" * 10) + "\n")
+
+    addCount = 0
     for word, word_data in data["words"].items():
         anki_action = prepare_anki_action(
             deck=args.deck,
@@ -109,12 +116,19 @@ if __name__ == "__main__":
             phraseFurigana=phraseFurigana,
             phraseTranslation=phraseTranslation,
         )
-        log(json.dumps(anki_action, ensure_ascii=False))
+        # log(json.dumps(anki_action, ensure_ascii=False))
 
         if not args.dry:
             # send to anki
+            fields = anki_action["params"]["note"]["fields"]
             response = r.post("http://localhost:8765", json=anki_action)
-            log("\n")
-            log("Response Body:", response.json())
+            data = response.json()
 
-        log("\n" + ("-" * 10) + "\n")
+            err = data["error"]
+            msg = "[+] Added successfully" if err is None else f"[!] {err}"
+            addCount = addCount + 1 if err is None else addCount
+
+            log(f"[*] {fields['Word Furigana']} - {fields['Word Meaning']}")
+            log(f"\t{msg}\n")
+
+    log(f"\n\n[*] Added {addCount} words")
